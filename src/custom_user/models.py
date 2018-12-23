@@ -134,6 +134,7 @@ class EmailUser(AbstractEmailUser):
     Use this if you don't need to extend EmailUser.
 
     """
+    username = models.CharField(max_length=20, null=True, verbose_name=u'유저네임')
 
     class Meta(AbstractEmailUser.Meta):  # noqa: D101
         swappable = 'AUTH_USER_MODEL'
