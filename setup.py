@@ -19,13 +19,13 @@ if sys.argv[-1] == 'publish':
 readme = open('README.rst').read()
 
 setup(
-    name='django-custom-user',
-    version='0.7',
+    name='django-email-user-with-username',
+    version='0.1',
     description="""Custom user model for Django >= 1.5 with the same behaviour as Django's default User but with email instead of username.""",
     long_description=readme,
-    author='Josep Cugat',
-    author_email='jcugat@gmail.com',
-    url='https://github.com/jcugat/django-custom-user',
+    author='Soomin Jeong',
+    author_email='soominjeongkr@gmail.com',
+    url='https://github.com/soomin-jeong/django-email-user-with-username',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
