@@ -140,8 +140,8 @@ class EmailUser(AbstractEmailUser):
 
     @transaction.commit_on_success
     def save(self, *args, **kwargs):
-        user_registered.send(self.email)
         super(EmailUser, self).save(*args, **kwargs)
+        user_registered.send(self.email)
 
     class Meta(AbstractEmailUser.Meta):  # noqa: D101
         swappable = 'AUTH_USER_MODEL'
