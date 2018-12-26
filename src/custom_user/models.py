@@ -6,7 +6,8 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-
+from django.db import transaction
+from .signals import user_registered
 
 class EmailUserManager(BaseUserManager):
 
@@ -135,6 +136,12 @@ class EmailUser(AbstractEmailUser):
 
     """
     username = models.CharField(max_length=20, null=True, verbose_name=u'유저네임')
+
+
+    @transaction.commit_on_success
+    def save(self, *args, **kwargs):
+        user_registered.send(self.email)
+        super(EmailUser, self).save(*args, **kwargs)
 
     class Meta(AbstractEmailUser.Meta):  # noqa: D101
         swappable = 'AUTH_USER_MODEL'
