@@ -137,10 +137,9 @@ class EmailUser(AbstractEmailUser):
     """
     username = models.CharField(max_length=20, null=True, verbose_name=u'유저네임')
 
-
-    @transaction.commit_on_success
     def save(self, *args, **kwargs):
-        super(EmailUser, self).save(*args, **kwargs)
+        with transaction.atomic():
+            super(EmailUser, self).save(*args, **kwargs)
         user_registered.send(self.email)
 
     class Meta(AbstractEmailUser.Meta):  # noqa: D101
